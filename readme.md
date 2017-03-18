@@ -1,3 +1,11 @@
+## Setup
+<p>#1 composer install</p>
+<p>#2 cp .env.example .env</p>
+<p>#3 chmod -Rf 777 storage/ bootstrap/cache/</p>
+<p>#4 npm install</p>
+
+## Links
+
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
 <p align="center">

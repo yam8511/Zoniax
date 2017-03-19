@@ -9,7 +9,6 @@
 
                 <div class="panel-body">
                     You are logged in!
-                    @include($zz)
                 </div>
             </div>
         </div>

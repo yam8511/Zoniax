@@ -157,14 +157,23 @@ class UserListController extends Controller
     public function show($id)
     {
         try {
-            $user = User::find($id);
-            if ($user->group == 2) {
-                return redirect()->route('userlist.index');
+            $admin = \Auth::user();
+            $user = \App\User::findOrFail($id);
+
+            // 如果不是admin, 而且公司ID與自己的公司不符合時, 則沒有權限
+            if ($admin->group != 2) {
+                if ($user->company()->id != $admin->company()->id
+                || $admin->group < $user->group
+                ) {
+                    return response()->json([
+                        'result' => 'error',
+                        'msg' => '檢視會員失敗: 沒有權限',
+                    ]);
+                }
             }
 
-            return view('userlist.index', [
+            return view('userlist.show', [
                 'user' => $user,
-                'companies' => $user->company(),
             ]);
         } catch (\Exception $e) {
             return $this->catchError($e, "檢視會員失敗, ID: {$id}");
@@ -193,10 +202,10 @@ class UserListController extends Controller
     {
         try {
             $admin = \Auth::user();
-            $user = User::findOrFail($id);
+            $user = \App\User::findOrFail($id);
 
             // 如果不是admin, 而且公司ID與自己的公司不符合時, 則沒有權限
-            if ($user->group != 2) {
+            if ($admin->group != 2) {
                 if ($user->company()->id != $admin->company()->id
                 || $admin->group < $user->group
                 ) {
@@ -252,10 +261,10 @@ class UserListController extends Controller
     {
         try {
             $admin = \Auth::user();
-            $user = \User::findOrFail($id);
+            $user = \App\User::findOrFail($id);
 
             // 如果不是admin, 而且公司ID與自己的公司不符合時, 則沒有權限
-            if ($user->group != 2) {
+            if ($admin->group != 2) {
                 if ($user->company()->id != $admin->company()->id
                 || $admin->group < $user->group
                 ) {

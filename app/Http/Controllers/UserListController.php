@@ -233,7 +233,7 @@ class UserListController extends Controller
             ]);
 
         } catch (\Exception $e) {
-            return $this->catchError($e, '編輯會員失敗: 系統發生錯誤，請聯絡商家')
+            return $this->catchError($e, '編輯會員失敗: 系統發生錯誤，請聯絡商家');
         }
     }
 

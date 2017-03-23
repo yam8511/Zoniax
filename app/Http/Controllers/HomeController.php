@@ -23,6 +23,14 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $data = [
+            'password' => 113,
+            'aa' => 12
+        ];
+
+        $keys = \Auth::user()->fillable;
+
+        dd(array_only($data, $keys));
         return view('home', [
             'zz' => 'main'
         ]);

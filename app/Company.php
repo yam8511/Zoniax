@@ -3,18 +3,16 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\CompanyMemberMap;
-use App\CompanyManagerMap;
+use App\User;
 
 class Company extends Model
 {
     /**
      * 取得公司的會員列表
      */
-    public function members()
+    public function userlist()
     {
-        $members = CompanyMemberMap::where('company_id', $this->id)->get();
-        return $members;
+        return User::where('company_id', $this->id)->get();
     }
 
     /**
@@ -22,7 +20,18 @@ class Company extends Model
      */
     public function managers()
     {
-        $managers = CompanyManagerMap::where('company_id', $this->id)->get();
-        return $managers;
+        return $this->userlist()->filter(function ($user) {
+            return $user->group == 1;
+        });
+    }
+
+    /**
+     * 取得公司的會員列表
+     */
+    public function members()
+    {
+        return $this->userlist()->filter(function ($user) {
+            return $user->group == 0;
+        });
     }
 }

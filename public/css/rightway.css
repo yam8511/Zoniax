@@ -79,7 +79,6 @@ body {
     line-height: inherit;
 }
 .btn-primary {
-    display: block;
     width: 70px;
     height: 40px;
     line-height: 20px;

@@ -72,6 +72,7 @@ class UserListController extends Controller
                 'name' => 'required|max:255',
                 'email' => 'required|email|max:255',
                 'password' => 'required|min:6|confirmed',
+                'group' => 'in:0,1,2'
             ], [
                 'name.required' => '名稱必填',
                 'name.max' => '名稱字數最多只能填入255個字',
@@ -80,7 +81,8 @@ class UserListController extends Controller
                 'email.max' => 'E-mail字數最多只能填入255個字',
                 'password.required' => '密碼必填',
                 'password.min' => '密碼最少須6碼',
-                'password.confirmed' => '密碼確認錯誤'
+                'password.confirmed' => '密碼確認錯誤',
+                'group' => '請選擇對的身份',
             ]);
 
             // 如果驗證失敗，回傳錯誤訊息

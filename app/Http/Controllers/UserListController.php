@@ -18,15 +18,21 @@ class UserListController extends Controller
      */
     public function index()
     {
-        $user = \Auth::user();
-        $data = ['user' => $user];
-        if ($user->group == 2) {
-            $data ['companies'] = $user->company();
-        } else {
-            $data ['companies'] = [$user->company()];
+        try {
+            $user = \Auth::user();
+            $data = ['user' => $user];
+            if ($user->group == 2) {
+                $data ['companies'] = $user->company();
+            } else {
+                $data ['companies'] = [$user->company()];
+            }
+
+            return response()->json($data);
+        } catch (\Exception $e) {
+            return $this->catchError($e, '取得使用者資料失敗');
         }
 
-        return view('userlist.index', $data);
+        // return view('userlist.index', $data);
     }
 
     /**

@@ -72,7 +72,8 @@ class UserListController extends Controller
                 'name' => 'required|max:255',
                 'email' => 'required|email|max:255',
                 'password' => 'required|min:6|confirmed',
-                'group' => 'in:0,1,2'
+                'group' => 'in:0,1,2',
+                'company_id' => 'required|numeric',
             ], [
                 'name.required' => '名稱必填',
                 'name.max' => '名稱字數最多只能填入255個字',
@@ -83,6 +84,7 @@ class UserListController extends Controller
                 'password.min' => '密碼最少須6碼',
                 'password.confirmed' => '密碼確認錯誤',
                 'group' => '請選擇對的身份',
+                'company_id' => '缺少公司ID',
             ]);
 
             // 如果驗證失敗，回傳錯誤訊息
@@ -252,6 +254,7 @@ class UserListController extends Controller
             return response()->json([
                 'result' => 'success',
                 'msg' => '編輯會員成功',
+                'data' => $user,
             ]);
 
         } catch (\Exception $e) {
@@ -289,6 +292,13 @@ class UserListController extends Controller
                     'msg' => '刪除會員失敗: 系統發生錯誤，請聯絡商家'
                 ]);
             }
+
+            $role = $user->group == 2 ? '工程師' : $user->group ? '管理者' : '會員';
+
+            return response()->json([
+                'result' => 'ok',
+                'msg' => "刪除{$role}成功",
+            ])
         } catch (\Exception $e) {
             return $this->catchError($e, '刪除會員失敗: 系統發生錯誤，請聯絡商家');
         }

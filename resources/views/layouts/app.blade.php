@@ -12,8 +12,10 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ URL::asset('/css/rightway.css') }}">
 
     <!-- Scripts -->
+    <script src="{{ url('js/jquery-1.9.1.js') }}" charset="utf-8"></script>
     <script>
         window.Laravel = {!! json_encode([
             'csrfToken' => csrf_token(),

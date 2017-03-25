@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Company;
 
 class UserListController extends Controller
 {
@@ -21,10 +22,22 @@ class UserListController extends Controller
         try {
             $user = \Auth::user();
             $data = ['user' => $user];
+            $company = $user->company();
+            $data['user']['company'] = $company;
+            $data['user']['company']['managers'] = $company->managers();
+            $data['user']['company']['members'] = $company->members();
+
             if ($user->group == 2) {
-                $data ['companies'] = $user->company();
+                $allCompany = \App\Company::all();
+                $data ['companies'] = $allCompany;
             } else {
-                $data ['companies'] = [$user->company()];
+                $company = $user->company();
+                $data ['companies'] = [$company];
+            }
+
+            foreach ($data['companies'] as $index => $company) {
+                $data['companies'][$index]['managers'] = $company->managers();
+                $data['companies'][$index]['members'] = $company->members();
             }
 
             return response()->json($data);
@@ -72,6 +85,8 @@ class UserListController extends Controller
                 'name' => 'required|max:255',
                 'email' => 'required|email|max:255',
                 'password' => 'required|min:6|confirmed',
+                'group' => 'in:0,1,2',
+                'company_id' => 'required|numeric',
             ], [
                 'name.required' => '名稱必填',
                 'name.max' => '名稱字數最多只能填入255個字',
@@ -80,7 +95,9 @@ class UserListController extends Controller
                 'email.max' => 'E-mail字數最多只能填入255個字',
                 'password.required' => '密碼必填',
                 'password.min' => '密碼最少須6碼',
-                'password.confirmed' => '密碼確認錯誤'
+                'password.confirmed' => '密碼確認錯誤',
+                'group' => '請選擇對的身份',
+                'company_id' => '缺少公司ID',
             ]);
 
             // 如果驗證失敗，回傳錯誤訊息
@@ -143,10 +160,15 @@ class UserListController extends Controller
                 ]);
             };
 
+            $data = ['user' => $member];
+            $data['user']['company'] = $company;
+            $data['user']['company']['managers'] = $company->managers();
+            $data['user']['company']['members'] = $company->members();
+
             return response()->json([
                 'result' => 'ok',
                 'msg' => '新增會員成功',
-                'data' => $member,
+                'data' => $data,
             ]);
 
         } catch (\Exception $e) {
@@ -178,9 +200,20 @@ class UserListController extends Controller
                 }
             }
 
-            return view('userlist.show', [
-                'user' => $user,
+            $data = ['user' => $user];
+            $company = $user->company();
+            $data['user']['company'] = $company;
+            $data['user']['company']['managers'] = $company->managers();
+            $data['user']['company']['members'] = $company->members();
+
+            return response()->json([
+                'result' => 'ok',
+                'data' => $data,
             ]);
+
+            // return view('userlist.show', [
+            //     'user' => $user,
+            // ]);
         } catch (\Exception $e) {
             return $this->catchError($e, "檢視會員失敗, ID: {$id}");
         }
@@ -247,9 +280,18 @@ class UserListController extends Controller
             // 更新會員
             $user->update(array_only($request->all(), $user->fillable));
 
+            $data = [
+                'user' => $user,
+            ];
+            $company = $user->company();
+            $data['user']['company'] = $company;
+            $data['user']['company']['managers'] = $company->managers();
+            $data['user']['company']['members'] = $company->members();
+
             return response()->json([
                 'result' => 'success',
                 'msg' => '編輯會員成功',
+                'data' => $data,
             ]);
 
         } catch (\Exception $e) {
@@ -287,6 +329,13 @@ class UserListController extends Controller
                     'msg' => '刪除會員失敗: 系統發生錯誤，請聯絡商家'
                 ]);
             }
+
+            $role = $user->group == 2 ? '工程師' : $user->group ? '管理者' : '會員';
+
+            return response()->json([
+                'result' => 'ok',
+                'msg' => "刪除{$role}成功",
+            ]);
         } catch (\Exception $e) {
             return $this->catchError($e, '刪除會員失敗: 系統發生錯誤，請聯絡商家');
         }

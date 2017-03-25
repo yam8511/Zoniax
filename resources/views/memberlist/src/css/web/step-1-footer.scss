@@ -1,0 +1,28 @@
+.footer{
+    hr{
+        margin-top: 60px;
+        margin-bottom: 27px;
+        border-top: 1px solid #EFEFEF;
+    }
+    button{
+        margin:0;
+        border: none;
+        width: 48%;
+        height: 50px;
+        cursor: pointer;
+        text-align: center;
+        line-height: 50px;
+        font-size: 15px;
+    }
+    width: 750px;
+    .footer-btn-reset{
+        float: left;
+        background-color: #f3f3f3;
+        color: #000;
+    }
+    .footer-btn-submit{
+        float:right;
+        background-color: #34c3d6;
+        color:white;
+    }
+}

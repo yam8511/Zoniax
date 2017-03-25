@@ -1,0 +1,41 @@
+@charset 'UTF-8';
+
+// -------------------------------------
+//     Normalize
+// -------------------------------------
+@import 'vendors/normalize.css';
+
+// -------------------------------------
+//     Susy
+// -------------------------------------
+@import '~susy/sass/susy';
+@import 'vendors/susy';
+
+// -------------------------------------
+//     react-load-mask
+// -------------------------------------
+@import '~react-load-mask/style/index';
+@import 'vendors/react-load-mask';
+
+// -------------------------------------
+//     Loading
+// -------------------------------------
+@import 'web/loading';
+
+// -------------------------------------
+//     Main
+// -------------------------------------
+@import 'web/container';
+@import 'web/header';
+@import 'web/step-1-footer';
+@import 'web/sop';
+@import 'web/step-form';
+@import 'web/step-2';
+// -------------------------------------
+//     react-select
+// -------------------------------------
+@import 'vendors/react-select';
+// -------------------------------------
+//     react-select
+// -------------------------------------
+@import "vendors/font";

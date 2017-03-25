@@ -63,6 +63,12 @@
                 margin-bottom: 30px;
             }
         </style>
+
+        <script>
+            window.Laravel = {!! json_encode([
+                'csrfToken' => csrf_token(),
+            ]) !!};
+        </script>
     </head>
     <body>
         <div class="flex-center position-ref full-height">
@@ -82,6 +88,10 @@
                     Laravel
                 </div>
 
+                <div id="root">
+
+                </div>
+
                 <div class="links">
                     <a href="https://laravel.com/docs">Documentation</a>
                     <a href="https://laracasts.com">Laracasts</a>
@@ -91,5 +101,7 @@
                 </div>
             </div>
         </div>
+
+        <script src="{{ url('js/todo.js') }}"></script>
     </body>
 </html>

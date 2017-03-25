@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Company;
 
 class UserListController extends Controller
 {
@@ -21,10 +22,19 @@ class UserListController extends Controller
         try {
             $user = \Auth::user();
             $data = ['user' => $user];
+            $data['user']['company'] = $user->company();
             if ($user->group == 2) {
-                $data ['companies'] = $user->company();
+                $allCompany = \App\Company::all();
+                $data ['companies'] = $allCompany;
+                foreach ($allCompany as $index => $company) {
+                    $data['companies'][$index]['managers'] = $company->managers()->flatten();
+                    $data['companies'][$index]['members'] = $company->members()->flatten();
+                }
             } else {
-                $data ['companies'] = [$user->company()];
+                $company = $user->company();
+                $data ['companies'] = [$company];
+                $data['companies'][0]['managers'] = $company->managers()->flatten();
+                $data['companies'][0]['members'] = $company->members()->flatten();
             }
 
             return response()->json($data);
@@ -147,10 +157,15 @@ class UserListController extends Controller
                 ]);
             };
 
+            $data = ['user' => $member];
+            $data['user']['company'] = $company;
+            $data['user']['company']['managers'] = $company->managers()->flatten();
+            $data['user']['company']['members'] = $company->members()->flatten();
+
             return response()->json([
                 'result' => 'ok',
                 'msg' => '新增會員成功',
-                'data' => $member,
+                'data' => $data,
             ]);
 
         } catch (\Exception $e) {
@@ -182,9 +197,20 @@ class UserListController extends Controller
                 }
             }
 
-            return view('userlist.show', [
-                'user' => $user,
+            $data = ['user' => $user];
+            $company = $user->company();
+            $data['user']['company'] = $company;
+            $data['user']['company']['managers'] = $company->managers()->flatten();
+            $data['user']['company']['members'] = $company->members()->flatten();
+
+            return response()->json([
+                'result' => 'ok',
+                'data' => $data,
             ]);
+
+            // return view('userlist.show', [
+            //     'user' => $user,
+            // ]);
         } catch (\Exception $e) {
             return $this->catchError($e, "檢視會員失敗, ID: {$id}");
         }
@@ -251,10 +277,18 @@ class UserListController extends Controller
             // 更新會員
             $user->update(array_only($request->all(), $user->fillable));
 
+            $data = [
+                'user' => $user,
+            ];
+            $company = $user->company();
+            $data['user']['company'] = $company;
+            $data['user']['company']['managers'] = $company->managers()->flatten();
+            $data['user']['company']['members'] = $company->members()->flatten();
+
             return response()->json([
                 'result' => 'success',
                 'msg' => '編輯會員成功',
-                'data' => $user,
+                'data' => $data,
             ]);
 
         } catch (\Exception $e) {
@@ -298,7 +332,7 @@ class UserListController extends Controller
             return response()->json([
                 'result' => 'ok',
                 'msg' => "刪除{$role}成功",
-            ])
+            ]);
         } catch (\Exception $e) {
             return $this->catchError($e, '刪除會員失敗: 系統發生錯誤，請聯絡商家');
         }

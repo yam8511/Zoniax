@@ -33,10 +33,6 @@ class User extends Authenticatable
      */
     public function company()
     {
-        if ($this->group == 2) {
-            return Company::all();
-        }
-
         return Company::where('id', $this->company_id)->first();
     }
 }

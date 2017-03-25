@@ -1,0 +1,75 @@
+// header
+.header{
+    position: relative;
+    background: #252525;
+    height: 130px;
+    width: 100%;
+    animation: header-keyframes .5s linear .2s 1;
+    padding-top: 10px;
+    .logo {
+        margin: 25px auto;
+        width: 200px;
+        height: 62px;
+        font-size: 50px;
+        color: #ABABAB;
+        text-align: center;
+    }
+    .header-deposit-sop{
+        position: absolute;
+        top:24px;
+        right:47px;
+        border-radius: 20px;
+        width: 26px;
+        height: 26px;
+        background: gray;
+        color: #31333B;
+        text-align: center;
+        font-size: 22px;
+        font-weight: bold;
+    }
+    .helpword{
+        color:gray;
+        position: absolute;
+        top:62px;
+        right:30px;
+        font-size: 15px;
+        font-weight: bold;
+    }
+    #sop2{
+        display: none;
+    }
+    .back-step-1 {
+      position: absolute;
+      top:15px;
+      right:47px;
+      color: #B0B0BD;
+      font-size: 1.2em;
+      line-height: 2em;
+      text-align: center;
+      transition: all .5s;
+      animation: fadein 2s;
+      font-size: 26px;
+      text-decoration: none;
+      animation: header-keyframes .5s linear .2s 1;
+      &:before {
+        font-family: esball;
+        content: "\E010";
+      }
+      &:hover {
+        transform: rotate(720deg);
+      }
+    }
+    .header-deposit-sop{
+        transition: all .5s;
+        animation: fadein 2s;
+        animation: header-keyframes .5s linear .2s 1;
+        &:hover {
+          transform: rotate(720deg);
+        }
+    }
+    @keyframes header-keyframes {
+      0%   { transform: translateY(-5em); }
+      50%  { transform: translateY(-2.5em); }
+      100% { transform: translateY(0); }
+    }
+}

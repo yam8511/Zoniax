@@ -48,7 +48,7 @@
 
                     <div class="form-group">
                         <div class="col-md-8 col-md-offset-4">
-                            <button type="submit" class="btn btn-primary">
+                            <button type="submit" class="btn btn-primary" id="Login">
                                 Login
                             </button>
 
@@ -63,8 +63,9 @@
     </div>
 </div>
 @endsection
-<script type="text/javascript">
-
+<script src="{{ url('js/jquery-1.9.1.js') }}" charset="utf-8"></script>
+<script>
+jQuery(document).ready(function () {
     $("input").focus(function() {
         $(this).css("color","#011591");
         $(this).css("background-color","#FFFFCC");
@@ -75,5 +76,22 @@
         $(this).css("background-color","#FFF");
         $(this).css("background-color","#FFF");
     });
+
+    $('#Login')
+    .on('click',function() {
+        $("#Login").animate({
+            width: "80px",
+            height:"50px",
+            'font-size': "25px",
+        },500)
+    })
+    .on('mouseout',function() {
+        $("#Login").animate({
+            width: "70px",
+            height:"40px",
+            'font-size': "20px"
+        },1500)
+    });
+});
 
 </script>

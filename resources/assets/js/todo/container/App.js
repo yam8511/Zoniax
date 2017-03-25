@@ -6,7 +6,7 @@ import TaskList from '../component/TaskList';
 class App extends Component {
 
     render() {
-        console.info('props', this.props);
+        // console.info('props', this.props);
         const { dispatch } = this.props;
         const allType = ['completed', 'active', 'all'];
 

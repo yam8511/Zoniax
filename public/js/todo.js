@@ -38186,9 +38186,9 @@ module.exports = getIteratorFn;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__compose__ = __webpack_require__(122);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_warning__ = __webpack_require__(124);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__createStore__["a"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_1__combineReducers__["a"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_2__bindActionCreators__["a"]; });
-/* unused harmony reexport applyMiddleware */
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_1__combineReducers__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_2__bindActionCreators__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_3__applyMiddleware__["a"]; });
 /* unused harmony reexport compose */
 
 
@@ -50986,7 +50986,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-var store = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4_redux__["a" /* createStore */])(__WEBPACK_IMPORTED_MODULE_6__reducer_todo__["a" /* default */]);
+var logger = function logger(store) {
+	return function (next) {
+		return function (action) {
+			console.group('Action');
+			console.info('prev state', store.getState());
+			console.warn('dispatching', action);
+			var result = next(action);
+			console.info('next state', store.getState());
+			console.groupEnd();
+			return result;
+		};
+	};
+};
+
+var store = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4_redux__["a" /* createStore */])(__WEBPACK_IMPORTED_MODULE_6__reducer_todo__["a" /* default */], __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4_redux__["b" /* applyMiddleware */])(logger));
 
 axios.get('/manager/userlist').then(function (response) {
 	console.info('呼叫api資料, 請看data', response);
@@ -51195,7 +51209,7 @@ var App = function (_Component) {
         value: function render() {
             var _this2 = this;
 
-            console.info('props', this.props);
+            // console.info('props', this.props);
             var dispatch = this.props.dispatch;
 
             var allType = ['completed', 'active', 'all'];
@@ -51363,7 +51377,7 @@ function showType() {
 }
 
 // 融合所有function, 建立一個 Reducer
-var todoReducer = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_redux__["c" /* combineReducers */])({
+var todoReducer = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_redux__["d" /* combineReducers */])({
     todos: todos,
     showType: showType
 });
@@ -62068,7 +62082,7 @@ function whenMapDispatchToPropsIsMissing(mapDispatchToProps) {
 
 function whenMapDispatchToPropsIsObject(mapDispatchToProps) {
   return mapDispatchToProps && typeof mapDispatchToProps === 'object' ? __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__wrapMapToProps__["b" /* wrapMapToPropsConstant */])(function (dispatch) {
-    return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_redux__["b" /* bindActionCreators */])(mapDispatchToProps, dispatch);
+    return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_redux__["c" /* bindActionCreators */])(mapDispatchToProps, dispatch);
   }) : undefined;
 }
 
@@ -64532,7 +64546,7 @@ module.exports = traverseAllChildren;
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__compose__ = __webpack_require__(122);
-/* unused harmony export default */
+/* harmony export (immutable) */ __webpack_exports__["a"] = applyMiddleware;
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 

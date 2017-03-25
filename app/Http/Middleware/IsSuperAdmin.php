@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class VerifyAdmin
+class IsSuperAdmin
 {
     /**
      * Handle an incoming request.
@@ -15,13 +15,6 @@ class VerifyAdmin
      */
     public function handle($request, Closure $next)
     {
-        if (\Auth::check()) {
-            if (!in_array(\Auth::user()->group, [1, 2])) {
-                return redirect('/');
-            }
-        } else {
-            return redirect('/login');
-        }
         return $next($request);
     }
 }

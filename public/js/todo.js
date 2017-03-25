@@ -50988,6 +50988,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 var store = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4_redux__["a" /* createStore */])(__WEBPACK_IMPORTED_MODULE_6__reducer_todo__["a" /* default */]);
 
+axios.get('/manager/userlist').then(function (response) {
+	console.info('呼叫api資料, 請看data', response);
+});
+
 __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_react_dom__["render"])(__WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
 	__WEBPACK_IMPORTED_MODULE_3_react_redux__["a" /* Provider */],
 	{ store: store },

@@ -22,19 +22,22 @@ class UserListController extends Controller
         try {
             $user = \Auth::user();
             $data = ['user' => $user];
-            $data['user']['company'] = $user->company();
+            $company = $user->company();
+            $data['user']['company'] = $company;
+            $data['user']['company']['managers'] = $company->managers();
+            $data['user']['company']['members'] = $company->members();
+
             if ($user->group == 2) {
                 $allCompany = \App\Company::all();
                 $data ['companies'] = $allCompany;
-                foreach ($allCompany as $index => $company) {
-                    $data['companies'][$index]['managers'] = $company->managers()->flatten();
-                    $data['companies'][$index]['members'] = $company->members()->flatten();
-                }
             } else {
                 $company = $user->company();
                 $data ['companies'] = [$company];
-                $data['companies'][0]['managers'] = $company->managers()->flatten();
-                $data['companies'][0]['members'] = $company->members()->flatten();
+            }
+
+            foreach ($data['companies'] as $index => $company) {
+                $data['companies'][$index]['managers'] = $company->managers();
+                $data['companies'][$index]['members'] = $company->members();
             }
 
             return response()->json($data);
@@ -159,8 +162,8 @@ class UserListController extends Controller
 
             $data = ['user' => $member];
             $data['user']['company'] = $company;
-            $data['user']['company']['managers'] = $company->managers()->flatten();
-            $data['user']['company']['members'] = $company->members()->flatten();
+            $data['user']['company']['managers'] = $company->managers();
+            $data['user']['company']['members'] = $company->members();
 
             return response()->json([
                 'result' => 'ok',
@@ -200,8 +203,8 @@ class UserListController extends Controller
             $data = ['user' => $user];
             $company = $user->company();
             $data['user']['company'] = $company;
-            $data['user']['company']['managers'] = $company->managers()->flatten();
-            $data['user']['company']['members'] = $company->members()->flatten();
+            $data['user']['company']['managers'] = $company->managers();
+            $data['user']['company']['members'] = $company->members();
 
             return response()->json([
                 'result' => 'ok',
@@ -282,8 +285,8 @@ class UserListController extends Controller
             ];
             $company = $user->company();
             $data['user']['company'] = $company;
-            $data['user']['company']['managers'] = $company->managers()->flatten();
-            $data['user']['company']['members'] = $company->members()->flatten();
+            $data['user']['company']['managers'] = $company->managers();
+            $data['user']['company']['members'] = $company->members();
 
             return response()->json([
                 'result' => 'success',

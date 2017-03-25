@@ -22,7 +22,7 @@ class Company extends Model
     {
         return $this->userlist()->filter(function ($user) {
             return $user->group > 0;
-        });
+        })->flatten();
     }
 
     /**
@@ -32,6 +32,6 @@ class Company extends Model
     {
         return $this->userlist()->filter(function ($user) {
             return $user->group == 0;
-        });
+        })->flatten();
     }
 }

@@ -17,10 +17,10 @@ class CreateCompaniesTable extends Migration
             $table->increments('id');
             $table->string('alias');
             $table->string('name');
-            $table->text('info');
-            $table->string('address');
-            $table->string('tel');
-            $table->string('email');
+            $table->text('info')->nullable();
+            $table->string('address')->nullable();
+            $table->string('tel')->nullable();
+            $table->string('email')->nullable();
             $table->timestamps();
         });
     }

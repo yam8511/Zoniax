@@ -24,17 +24,17 @@ Route::get('/home', 'HomeController@index');
  | 各商家頁面
  |------------------------------------------
  | * 首頁
- | * 登入頁
- | * 註冊頁
+ | * 登入
+ | * 註冊
+ | * 取得資訊
  */
 
 Route::group([
     'prefix' => '{company}',
 ], function () {
     Route::get('/', 'MemberController@index');
-    Route::get('/login', 'MemberController@login');
+    Route::get('/info', 'MemberController@info');
     Route::post('/login', 'MemberController@login');
-    Route::get('/register', 'MemberController@register');
     Route::post('/register', 'MemberController@register');
 });
 

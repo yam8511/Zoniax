@@ -42,7 +42,7 @@ class UserListController extends Controller
                 $data['companies'][$index]['managers'] = $company->managers();
                 $data['companies'][$index]['members'] = $company->members();
             }
-            return view('userlist.index', $data);
+            // return view('userlist.index', $data);
             return response()->json($data);
         } catch (\Exception $e) {
             return $this->catchError($e, '取得使用者資料失敗');

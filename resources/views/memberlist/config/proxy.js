@@ -8,23 +8,15 @@ const convertCookies = (cookies) => {
 };
 
 module.exports = {
-    '/infe': {
-        target: './',
-        changeOrigin: true,
+    '/manager': {
+        target: 'http://localhost:3000',
         headers: {
-            Cookie: convertCookies({
-                SESSION_ID: 'add9c57cf3ce1f8eefd12053b0c2655a35fdc878',
-                BBSESSID: 'add9c57cf3ce1f8eefd12053b0c2655a35fdc878',
-                lang: 'zh-tw',
-                langx: 'big5',
-                langcode: 'zh-tw',
-                sid: 'ne70ff16z2jmbnmuz1nmzj5z1',
-                rd3_host: 'http%3A%2F%2Fadmin.vir777.com'
-            })
+            credentials: "same-origin",
+            SESSIONID: 'qwe123'
         }
     },
     '/m': {
-        target: './',
+        target: 'http://localhost:80',
         changeOrigin: true
     }
 };

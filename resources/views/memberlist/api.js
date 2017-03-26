@@ -53,6 +53,160 @@ router.get('/member_data.json', (req, res) => {
     }, 1000);
 });
 
+router.get('/manager/userlist', (req, res) => {
+    setTimeout(() => {
+        res.json({
+        "user": {
+            "id": 7,
+            "name": "Haix",
+            "email": "haix.yeh@gmail.com",
+            "group": 2,
+            "company_id": 2,
+            "created_at": "2017-03-24 15:10:11",
+            "updated_at": "2017-03-24 15:10:11",
+            "company": {
+                "id": 2,
+                "alias": "zoniax",
+                "name": "Zoniax",
+                "info": "123",
+                "address": "123",
+                "tel": "123",
+                "email": "123",
+                "created_at": null,
+                "updated_at": null,
+                "managers": [
+                    {
+                    "id": 1,
+                    "name": "Zuolar",
+                    "email": "yam8511@gmail.com",
+                    "group": 2,
+                    "company_id": 2,
+                    "created_at": "2017-03-19 13:57:40",
+                    "updated_at": "2017-03-19 13:57:40"
+                    },
+                    {
+                    "id": 7,
+                    "name": "Haix",
+                    "email": "haix.yeh@gmail.com",
+                    "group": 2,
+                    "company_id": 2,
+                    "created_at": "2017-03-24 15:10:11",
+                    "updated_at": "2017-03-24 15:10:11"
+                    }
+                ],
+                "members": [
+                {
+                "id": 6,
+                "name": "zoularli",
+                "email": "zoular.li@gmail.com",
+                "group": 0,
+                "company_id": 2,
+                "created_at": "2017-03-24 14:20:16",
+                "updated_at": "2017-03-24 14:20:16"
+                }
+                ]
+            }
+        },
+            "companies": [
+            {
+            "id": 1,
+            "alias": "chungyo",
+            "name": "中又",
+            "info": "231",
+            "address": "123",
+            "tel": "123",
+            "email": "123",
+            "created_at": null,
+            "updated_at": null,
+            "managers": [
+            {
+            "id": 2,
+            "name": "Man",
+            "email": "man@gmail.com",
+            "group": 1,
+            "company_id": 1,
+            "created_at": "2017-03-19 14:09:14",
+            "updated_at": "2017-03-19 14:09:14"
+            }
+            ],
+            "members": [
+            {
+            "id": 3,
+            "name": "Mem",
+            "email": "mem@gmail.com",
+            "group": 0,
+            "company_id": 1,
+            "created_at": "2017-03-23 17:22:55",
+            "updated_at": "2017-03-23 17:22:55"
+            },
+            {
+            "id": 4,
+            "name": "Mem2",
+            "email": "mem2@gmail.com",
+            "group": 0,
+            "company_id": 1,
+            "created_at": "2017-03-23 17:29:06",
+            "updated_at": "2017-03-23 17:29:06"
+            },
+            {
+            "id": 5,
+            "name": "Mem3",
+            "email": "mem3@gmail.com",
+            "group": 0,
+            "company_id": 1,
+            "created_at": "2017-03-24 14:16:22",
+            "updated_at": "2017-03-24 14:16:22"
+            }
+            ]
+            },
+            {
+            "id": 2,
+            "alias": "zoniax",
+            "name": "Zoniax",
+            "info": "123",
+            "address": "123",
+            "tel": "123",
+            "email": "123",
+            "created_at": null,
+            "updated_at": null,
+            "managers": [
+            {
+            "id": 1,
+            "name": "Zuolar",
+            "email": "yam8511@gmail.com",
+            "group": 2,
+            "company_id": 2,
+            "created_at": "2017-03-19 13:57:40",
+            "updated_at": "2017-03-19 13:57:40"
+            },
+            {
+            "id": 7,
+            "name": "Haix",
+            "email": "haix.yeh@gmail.com",
+            "group": 2,
+            "company_id": 2,
+            "created_at": "2017-03-24 15:10:11",
+            "updated_at": "2017-03-24 15:10:11"
+            }
+            ],
+                "members": [
+                        {
+                        "id": 6,
+                        "name": "zoularli",
+                        "email": "zoular.li@gmail.com",
+                        "group": 0,
+                        "company_id": 2,
+                        "created_at": "2017-03-24 14:20:16",
+                        "updated_at": "2017-03-24 14:20:16"
+                        }
+                ]
+            }
+            ]
+            });
+    }, 1000);
+});
+
+
 router.get('/money_switch.json', (req, res) => {
     setTimeout(() => {
         res.json({

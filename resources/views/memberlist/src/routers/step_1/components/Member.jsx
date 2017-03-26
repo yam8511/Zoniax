@@ -26,13 +26,13 @@ class Step1 extends Component {
         super();
         this.state = {
             imageRoot: (process.env.NODE_ENV === 'development') ? '..' : '_',
-            show: true
+            menus: false
         };
     }
     componentDidMount() {
         const store = this.props;
         store.dispatch(setRouter(''));
-        store.dispatch(fetchPosts('http://webpack:3000/infe/rest/cash/payfast/displaypage.json')).then(
+        store.dispatch(fetchPosts('http://localhost:3000/manager/userlist')).then(
             () => {
                 store.dispatch(setMask(false));
             }
@@ -41,6 +41,9 @@ class Step1 extends Component {
     componentWillUnmount() {
         const store = this.props;
         store.dispatch(setMask(true));
+    }
+    changeMenu = () => {
+        this.setState({ menus: !this.state.menus });
     }
 
     // 驗證function
@@ -62,8 +65,8 @@ class Step1 extends Component {
             return null;
         }
         const classes = classNames({
-            'menu': true,
-            'menu-show': this.state.show
+            menu: true,
+            'menu-hidden': this.state.menus
         });
         const classes2 = classNames({
             'step-2': true,
@@ -73,7 +76,18 @@ class Step1 extends Component {
         return (
             <div className="member-wrap">
                 <div className={classes}>
-                    <img className="menu-btn" alt="" src="../../../image/member/list.png" />
+                    <img className="menu-btn" alt="" src="../../../image/member/list.png" onClick={this.changeMenu} />
+                    <div className="menu-info">
+                        <p className="title-text">Manager</p>
+                        <ul>
+                            <li>
+                                會員列表
+                            </li>
+                            <li>
+                                商家列表
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         );

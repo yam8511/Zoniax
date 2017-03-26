@@ -39,7 +39,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'name' => 'Mem',
-                'email' => 'men@gmail.com',
+                'email' => 'mem@gmail.com',
                 'password' => bcrypt('qwe123'),
                 'group' => 0,
                 'company_id' => 1,

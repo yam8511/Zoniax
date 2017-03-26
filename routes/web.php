@@ -34,8 +34,8 @@ Route::group([
 ], function () {
     Route::get('/', 'MemberController@index');
     Route::get('/info', 'MemberController@info');
-    Route::post('/login', 'MemberController@login');
-    Route::post('/register', 'MemberController@register');
+    Route::any('/login', 'MemberController@login');
+    Route::any('/register', 'MemberController@register');
 });
 
 /*

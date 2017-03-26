@@ -18,9 +18,9 @@ const logger = store => next => action => {
 
 let store = createStore(todoReducer, applyMiddleware(logger));
 
-axios.get('/manager/userlist').then((response) => {
-	console.info('呼叫api資料, 請看data', response);
-});
+// axios.get('/manager/userlist').then((response) => {
+// 	console.info('呼叫api資料, 請看data', response);
+// });
 
 render(
 	<Provider store={store}>

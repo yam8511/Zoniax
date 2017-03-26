@@ -103,5 +103,10 @@
         </div>
 
         <script src="{{ url('js/todo.js') }}"></script>
+        <script>
+        axios.get('/manager/userlist').then((response) => {
+        	console.info('zzz呼叫api資料, 請看data', response);
+        });
+        </script>
     </body>
 </html>

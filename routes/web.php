@@ -19,8 +19,37 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
+/*
+ |------------------------------------------
+ | 各商家頁面
+ |------------------------------------------
+ | * 首頁
+ | * 登入
+ | * 註冊
+ | * 取得資訊
+ */
+
+Route::group([
+    'prefix' => '{company}',
+], function () {
+    Route::get('/', 'MemberController@index');
+    Route::get('/info', 'MemberController@info');
+    Route::any('/login', 'MemberController@login');
+    Route::any('/register', 'MemberController@register');
+});
+
+/*
+ |------------------------------------------
+ | 管理後台
+ |------------------------------------------
+ | * 編輯商家資訊頁面
+ | * 使用者列表
+ | * 商家列表
+ */
+
 Route::group([
     'prefix' => 'manager',
 ], function () {
     Route::resource('userlist', 'UserListController');
+    Route::resource('company', 'CompanyController');
 });

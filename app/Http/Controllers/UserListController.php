@@ -9,9 +9,7 @@ class UserListController extends Controller
 {
     public function __construct()
     {
-        if (!isset($_COOKIE['SESSIONID'])) {
-            $this->middleware('admin');
-        }
+        $this->middleware('admin');
     }
 
     /**
@@ -23,7 +21,10 @@ class UserListController extends Controller
     {
         try {
             $user = \Auth::user();
-            $data = ['user' => $user];
+            $data = [
+                'result' => 'ok',
+                'user' => $user,
+            ];
             $company = $user->company();
             $data['user']['company'] = $company;
             $data['user']['company']['managers'] = $company->managers();
@@ -41,13 +42,11 @@ class UserListController extends Controller
                 $data['companies'][$index]['managers'] = $company->managers();
                 $data['companies'][$index]['members'] = $company->members();
             }
-
+            // return view('userlist.index', $data);
             return response()->json($data);
         } catch (\Exception $e) {
             return $this->catchError($e, '取得使用者資料失敗');
         }
-
-        // return view('userlist.index', $data);
     }
 
     /**
@@ -75,6 +74,7 @@ class UserListController extends Controller
             if ($user->company()->id != $request->input('company_id')) {
                 return response()->json([
                     'result' => 'error',
+                    'code' => 'A00002',
                     'msg' => '新增會員失敗: 沒有權限',
                 ]);
             }
@@ -197,6 +197,7 @@ class UserListController extends Controller
                 ) {
                     return response()->json([
                         'result' => 'error',
+                        'code' => 'A00002',
                         'msg' => '檢視會員失敗: 沒有權限',
                     ]);
                 }
@@ -252,6 +253,7 @@ class UserListController extends Controller
                 ) {
                     return response()->json([
                         'result' => 'error',
+                        'code' => 'A00002',
                         'msg' => '編輯會員失敗: 沒有權限',
                     ]);
                 }
@@ -320,6 +322,7 @@ class UserListController extends Controller
                 ) {
                     return response()->json([
                         'result' => 'error',
+                        'code' => 'A00002',
                         'msg' => '刪除會員失敗: 沒有權限',
                     ]);
                 }
@@ -328,6 +331,7 @@ class UserListController extends Controller
             if (!$user->delete()) {
                 return response()->json([
                     'result' => 'error',
+                    'code' => 'InternalError',
                     'msg' => '刪除會員失敗: 系統發生錯誤，請聯絡商家'
                 ]);
             }
@@ -352,6 +356,7 @@ class UserListController extends Controller
         if ($user->group == 2) {
             return response()->json([
                 'result' => 'error',
+                'code' => 'InternalError',
                 'msg' => $e->getMessage(),
                 'line' => $e->getLine(),
                 'file' => $e->getFile(),
@@ -360,7 +365,8 @@ class UserListController extends Controller
 
         return response()->json([
             'result' => 'error',
-            'msg' => '新增會員失敗: 系統發生錯誤，請聯絡商家'
+            'code' => 'InternalError',
+            'msg' => $msg,
         ]);
     }
 }
